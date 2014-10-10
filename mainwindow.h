@@ -1,9 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "httphandler.h"
+
 #include <QMainWindow>
 #include <QtDebug>
-#include <QNetworkReply>
 
 namespace Ui {
 class MainWindow;
@@ -19,11 +20,11 @@ public:
 
 private slots:
     void on_pushButton_clicked();
-    void requestEnded(QNetworkReply *reply);
 
 private:
     Ui::MainWindow *ui;
     int httpstatus;
+    HttpHandler http;
 };
 
 #endif // MAINWINDOW_H
