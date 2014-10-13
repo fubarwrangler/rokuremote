@@ -11,22 +11,25 @@ HttpHandler::HttpHandler(QObject *parent) :
 void HttpHandler::doit(const char *path)
 {
     url.setUrl(QString(path));
-    QNetworkReply *reply;
+    //QNetworkReply *reply;
     QNetworkRequest req = QNetworkRequest(url);
     req.setHeader(QNetworkRequest::ContentTypeHeader,
                   QVariant("application/x-www-form-urlencoded"));
-    reply = manager.post(req, QByteArray(""));
+    manager.post(req, QByteArray(""));
 
-    QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+    //QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
     QObject::connect(&manager, SIGNAL(finished(QNetworkReply *)), this, SLOT(requestEnded(QNetworkReply *)));
-    loop.exec();
+    //loop.exec();
+
     qDebug() << "Donzo";
+
 }
 
 void HttpHandler::requestEnded(QNetworkReply *reply)
 {
 
     qDebug() << "Ended\n";
+
 
     httpstatus = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     switch(reply->error())  {
@@ -39,6 +42,7 @@ void HttpHandler::requestEnded(QNetworkReply *reply)
 
     }
 
+    reply->deleteLater();
 }
 
 
