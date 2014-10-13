@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "httphandler.h"
+#include "roku.h"
 
 #include <QMainWindow>
 #include <QtDebug>
@@ -23,8 +23,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    int httpstatus;
-    HttpHandler http;
+    Roku roku;
 };
 
 #endif // MAINWINDOW_H

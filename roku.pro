@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    httphandler.cpp
+    httphandler.cpp \
+    roku.cpp
 
 HEADERS  += mainwindow.h \
-    httphandler.h
+    httphandler.h \
+    roku.h
 
 FORMS    += mainwindow.ui

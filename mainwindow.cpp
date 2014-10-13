@@ -17,16 +17,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    std::string urlbase = "http://192.168.1.128:8060/keypress/";
-    std::string fullurl;
-
-
-    httpstatus = -1;
-
-    http.doit("http://192.168.1.128:8060/keypress/Up");
-
-
-    qDebug() << "Status: " << http.httpstatus;
+    roku.sendKey("Right");
+    qDebug() << "Key sent";
 }
 
 

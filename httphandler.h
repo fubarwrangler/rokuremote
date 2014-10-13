@@ -15,8 +15,10 @@ class HttpHandler : public QObject
 
 public:
     explicit HttpHandler(QObject *parent = 0);
-    void doit(const char *path);
-    int httpstatus;
+    void post(const char *path, bool synchronous = true);
+    void post(std::string &path, bool synchronous = true);
+    void post(QString &path, bool synchronous);
+    int status;
 private slots:
     void requestEnded(QNetworkReply *reply);
 private:
