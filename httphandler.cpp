@@ -8,6 +8,34 @@ HttpHandler::HttpHandler(QObject *parent) :
     status = -1;
 }
 
+void HttpHandler::post(QUrl &url, bool synchronous)
+{
+    QEventLoop *loop;
+    QNetworkRequest *req;
+
+    req = new QNetworkRequest(url);
+
+    req->setHeader(QNetworkRequest::ContentTypeHeader,
+                  QVariant("application/x-www-form-urlencoded"));
+    reply = manager.post(*req, QByteArray(""));
+    if(synchronous) {
+        loop = new QEventLoop;
+
+        QObject::connect(reply, SIGNAL(finished()), loop, SLOT(quit()));
+
+    }
+    //QObject::connect(&manager, SIGNAL(finished(QNetworkReply *)), this, SLOT(requestEnded(QNetworkReply *)));
+    QObject::connect(reply, SIGNAL(finished()), this, SLOT(requestEnded()));
+    if(synchronous) {
+        loop->exec();
+        delete loop;
+    }
+
+    delete req;
+    qDebug() << "Donezo";
+
+}
+
 void HttpHandler::post(std::string &path, bool synchronous)
 {
     post(path.data(), synchronous);
@@ -15,55 +43,31 @@ void HttpHandler::post(std::string &path, bool synchronous)
 
 void HttpHandler::post(QString &path, bool synchronous)
 {
-    post(path.toLocal8Bit().data(), synchronous);
+    QUrl url = QUrl(path);
+    post(url, synchronous);
 }
 
 void HttpHandler::post(const char *path, bool synchronous)
 {
-    QEventLoop *loop;
-    QNetworkReply *reply;
-    QNetworkRequest req = QNetworkRequest(url);
-
-    url.setUrl(QString(path));
-    qDebug() << "Set url: " << path;
-
-    req.setHeader(QNetworkRequest::ContentTypeHeader,
-                  QVariant("application/x-www-form-urlencoded"));
-    reply = manager.post(req, QByteArray(""));
-
-    if(synchronous) {
-        loop = new QEventLoop;
-        QObject::connect(reply, SIGNAL(finished()), loop, SLOT(quit()));
-    }
-    QObject::connect(&manager, SIGNAL(finished(QNetworkReply *)), this, SLOT(requestEnded(QNetworkReply *)));
-    if(synchronous) {
-        loop->exec();
-        delete loop;
-    }
-
-    qDebug() << "Donzo";
-
+    QString str = QString(path);
+    post(str, synchronous);
 }
 
-void HttpHandler::requestEnded(QNetworkReply *reply)
+void HttpHandler::requestEnded(void)
 {
-
-    qDebug() << "Ended\n";
-
     status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
-    qDebug() << "Status - " << status;
     switch(reply->error())  {
     case QNetworkReply::NoError:
-        qDebug() << "Ok\n";
+        qDebug() << "Status - Ok - " << status;
         break;
     default:
-        qDebug() << "Error: " << reply->errorString();
+        qDebug() << "Status - Error - " << status << " - " << reply->errorString();
         break;
 
     }
-
     reply->deleteLater();
+    reply = 0;
 }
 
 

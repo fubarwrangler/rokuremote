@@ -1,5 +1,6 @@
 #include "roku.h"
 #include <stdio.h>
+#include <QDebug>
 
 Roku::Roku(void)
 {
@@ -14,9 +15,10 @@ void Roku::sendKey(const char *name)
 
     std::string url;
     url = "http://" + address + ":8060/keypress/" + name;
-    http.post(url, false);
+    qDebug() << "Pre url: " << url.data();
+    http.post(url);
     num_req += 1;
-    qDebug() << num_req;
+    qDebug() << "Num: " << num_req;
 }
 /*
 std::string Roku::genUrl(void)
