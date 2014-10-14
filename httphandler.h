@@ -15,17 +15,25 @@ class HttpHandler : public QObject
 
 public:
     explicit HttpHandler(QObject *parent = 0);
+    ~HttpHandler();
+
     void post(const char *path, bool synchronous = false);
     void post(std::string &path, bool synchronous = false);
     void post(QString &path, bool synchronous = false);
     void post(QUrl &url, bool synchronous = false);
+
+    QByteArray get(QUrl &url);
+    QByteArray get(const char *path);
+    QByteArray get(std::string &url);
+
     int status;
 private slots:
-    void requestEnded(void);
+    void PostRequestEnded(void);
+    void GetRequestEnded(void);
 private:
-    QNetworkAccessManager manager;
-    QEventLoop loop;
+    QNetworkAccessManager *qnam;
     QNetworkReply *reply;
+    QByteArray response;
 };
 
 #endif // HTTPHANDLER_H

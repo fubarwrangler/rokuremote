@@ -19,7 +19,13 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_BtnOK_clicked();
+    void on_BtnUp_clicked();
+    void on_BtnDown_clicked();
+    void on_BtnLeft_clicked();
+    void on_BtnRight_clicked();
+
+    void on_rokuIpEdit_editingFinished();
 
 private:
     Ui::MainWindow *ui;

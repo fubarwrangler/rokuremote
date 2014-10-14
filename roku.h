@@ -8,9 +8,10 @@ class Roku
 public:
     explicit Roku(void);
     void sendKey(const char *name);
+    void testConnectivity(void);
 
 private:
-    //std::string genUrl(void);
+    std::string genUrl(void);
     HttpHandler http;
     std::string address;
     int port;

@@ -15,11 +15,19 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
+
+
+void MainWindow::on_BtnOK_clicked()     { roku.sendKey("Select"); }
+void MainWindow::on_BtnUp_clicked()     { roku.sendKey("Up"); }
+void MainWindow::on_BtnDown_clicked()   { roku.sendKey("Down"); }
+void MainWindow::on_BtnRight_clicked()  { roku.sendKey("Right"); }
+void MainWindow::on_BtnLeft_clicked()   { roku.sendKey("Left"); }
+
+
+void MainWindow::on_rokuIpEdit_editingFinished()
 {
-    roku.sendKey("Right");
-    qDebug() << "Key sent";
+
+    //roku.setIp();
+    roku.testConnectivity();
+    qDebug() << "Edit done";
 }
-
-
-
