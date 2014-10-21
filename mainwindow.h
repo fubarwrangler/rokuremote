@@ -27,6 +27,8 @@ private slots:
 
     void on_rokuIpEdit_editingFinished();
 
+    void on_getBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     Roku roku;

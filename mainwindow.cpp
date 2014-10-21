@@ -28,6 +28,12 @@ void MainWindow::on_rokuIpEdit_editingFinished()
 {
 
     //roku.setIp();
-    roku.testConnectivity();
+    //roku.testConnectivity();
     qDebug() << "Edit done";
+}
+
+void MainWindow::on_getBtn_clicked()
+{
+    roku.testConnectivity();
+    qDebug() << "Test done";
 }

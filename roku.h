@@ -15,7 +15,7 @@ private:
     HttpHandler http;
     std::string address;
     int port;
-    int httpstatus;
+    // int httpstatus;
     int num_req;
 };
 

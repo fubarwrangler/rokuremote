@@ -114,6 +114,19 @@
      </item>
     </layout>
    </widget>
+   <widget class="QCommandLinkButton" name="getBtn">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>270</y>
+      <width>187</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Get</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

@@ -29,10 +29,10 @@ public:
     int status;
 private slots:
     void PostRequestEnded(void);
-    void GetRequestEnded(void);
+    void GetRequestEnded();
 private:
     QNetworkAccessManager *qnam;
-    QNetworkReply *reply;
+    //QNetworkReply *reply;
     QByteArray response;
 };
 

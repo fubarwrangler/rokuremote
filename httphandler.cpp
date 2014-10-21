@@ -18,6 +18,7 @@ void HttpHandler::post(QUrl &url, bool synchronous)
 {
     QEventLoop *loop;
     QNetworkRequest *req;
+    QNetworkReply *reply;
 
     req = new QNetworkRequest(url);
 
@@ -73,10 +74,12 @@ QByteArray HttpHandler::get(const char *path)
 QByteArray HttpHandler::get(QUrl &url)
 {
     QEventLoop loop;
+    QNetworkReply *reply;
 
     reply = qnam->get(QNetworkRequest(url));
 
     QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+    //QObject::connect(qnam, SIGNAL(finished(QNetworkReply *)), this, SLOT(GetRequestEnded(QNetworkReply *)));
     QObject::connect(reply, SIGNAL(finished()), this, SLOT(GetRequestEnded()));
     loop.exec();
 
@@ -85,8 +88,10 @@ QByteArray HttpHandler::get(QUrl &url)
     return response;
 }
 
-void HttpHandler::GetRequestEnded(void)
+void HttpHandler::GetRequestEnded()
 {
+    QNetworkReply *reply = qobject_cast<QNetworkReply *>(sender());
+
     status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
     switch(reply->error())  {
@@ -100,14 +105,17 @@ void HttpHandler::GetRequestEnded(void)
     }
 
     response = reply->readAll();
+    qDebug() << "read reply - " << response;
+
     reply->deleteLater();
-    reply = 0;
 }
 
 
 
 void HttpHandler::PostRequestEnded(void)
 {
+    QNetworkReply *reply = qobject_cast<QNetworkReply *>(sender());
+
     status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
     switch(reply->error())  {
@@ -120,7 +128,6 @@ void HttpHandler::PostRequestEnded(void)
 
     }
     reply->deleteLater();
-    reply = 0;
 }
 
 

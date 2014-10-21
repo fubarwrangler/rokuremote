@@ -4,8 +4,8 @@
 
 Roku::Roku(void)
 {
-    address = "192.168.1.128";
-    //address = "127.0.0.1";
+    //address = "192.168.1.128";
+    address = "127.0.0.1";
     port = 8060;
     num_req = 0;
 }
