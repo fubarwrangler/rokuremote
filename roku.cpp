@@ -2,10 +2,9 @@
 #include <stdio.h>
 #include <QDebug>
 
-Roku::Roku(void)
+Roku::Roku(QString addr)
 {
-    //address = QString("192.168.1.128");
-    address = QString("127.0.0.1");
+    address = addr;
     port = 8060;
     num_req = 0;
 }
