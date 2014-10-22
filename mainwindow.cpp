@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    last_ipval = ui->rokuIpEdit->text();
 }
 
 MainWindow::~MainWindow()
@@ -26,10 +27,18 @@ void MainWindow::on_BtnLeft_clicked()   { roku.sendKey("Left"); }
 
 void MainWindow::on_rokuIpEdit_editingFinished()
 {
+    if (ui->rokuIpEdit->text() == last_ipval)   {
+        qDebug() << "Edit done -- no-change";
+        return;
+    }
+    if(roku.setIp(ui->rokuIpEdit->text()) == false) {
+        qDebug() << "Roku not found, please change!";
+    } else {
+        roku.refreshData();
+    }
 
-    //roku.setIp();
-    //roku.testConnectivity();
-    qDebug() << "Edit done";
+    last_ipval = ui->rokuIpEdit->text();
+    qDebug() << "Edit done -- changed";
 }
 
 void MainWindow::on_getBtn_clicked()

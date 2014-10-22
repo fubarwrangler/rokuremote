@@ -17,14 +17,15 @@ public:
     explicit HttpHandler(QObject *parent = 0);
     ~HttpHandler();
 
-    void post(const char *path, bool synchronous = false);
-    void post(std::string &path, bool synchronous = false);
-    void post(QString &path, bool synchronous = false);
-    void post(QUrl &url, bool synchronous = false);
+    QByteArray post(const char *path);
+    QByteArray post(std::string &path);
+    QByteArray post(QString &path);
+    QByteArray post(QUrl &url);
 
-    QByteArray get(QUrl &url);
     QByteArray get(const char *path);
+    QByteArray get(QUrl &url);
     QByteArray get(std::string &url);
+    QByteArray get(QString &path);
 
     int status;
 private slots:

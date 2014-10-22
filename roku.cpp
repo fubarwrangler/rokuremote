@@ -4,15 +4,15 @@
 
 Roku::Roku(void)
 {
-    //address = "192.168.1.128";
-    address = "127.0.0.1";
+    //address = QString("192.168.1.128");
+    address = QString("127.0.0.1");
     port = 8060;
     num_req = 0;
 }
 
 void Roku::testConnectivity(void)
 {
-    std::string url = genUrl();
+    QString url = genUrl();
     QByteArray foo = http.get(url);
     qDebug() << "Get reply: " << foo.constData();
 }
@@ -20,18 +20,30 @@ void Roku::testConnectivity(void)
 void Roku::sendKey(const char *name)
 {
 
-    std::string url = genUrl() + "/keypress/" + name;
-    //url = "http://" + address + ":8060/keypress/" + name;
-    qDebug() << "Pre url: " << url.data();
+    QString url = genUrl() + "/keypress/" + name;
     http.post(url);
-    num_req += 1;
-    qDebug() << "Num: " << num_req;
 }
 
-std::string Roku::genUrl(void)
+QString Roku::genUrl(void)
 {
-    char p[16];
-    sprintf(p, "%d", port);
-    std::string s = "http://" + address + ":" + p;
-    return s;
+    QString portstr;
+    portstr.setNum(port);
+    QString url = "http://" + address + ":" + portstr;
+    return url;
 }
+
+bool Roku::refreshData(void)
+{
+    QString url = genUrl();
+    QByteArray foo = http.get(url);
+    qDebug() << "Got data: " << foo;
+    return true;
+}
+
+bool Roku::setIp(const QString &str)
+{
+    qDebug() << "Address changed: " << address << " --> " << str;
+    address = str;
+    return refreshData();
+}
+

@@ -2,6 +2,9 @@
 #define ROKU_H
 
 #include <httphandler.h>
+#include <QHostAddress>
+#include <QHostInfo>
+
 
 class Roku
 {
@@ -9,13 +12,14 @@ public:
     explicit Roku(void);
     void sendKey(const char *name);
     void testConnectivity(void);
+    bool refreshData(void);
+    bool setIp(const QString &str);
 
 private:
-    std::string genUrl(void);
+    QString genUrl(void);
     HttpHandler http;
-    std::string address;
+    QString address;
     int port;
-    // int httpstatus;
     int num_req;
 };
 

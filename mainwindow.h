@@ -32,6 +32,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Roku roku;
+    QString last_ipval;
 };
 
 #endif // MAINWINDOW_H
