@@ -9,20 +9,22 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     last_ipval = ui->rokuIpEdit->text();
+    roku = new Roku(last_ipval);
 }
 
 MainWindow::~MainWindow()
 {
+    delete roku;
     delete ui;
 }
 
 
 
-void MainWindow::on_BtnOK_clicked()     { roku.sendKey("Select"); }
-void MainWindow::on_BtnUp_clicked()     { roku.sendKey("Up"); }
-void MainWindow::on_BtnDown_clicked()   { roku.sendKey("Down"); }
-void MainWindow::on_BtnRight_clicked()  { roku.sendKey("Right"); }
-void MainWindow::on_BtnLeft_clicked()   { roku.sendKey("Left"); }
+void MainWindow::on_BtnOK_clicked()     { roku->sendKey("Select"); }
+void MainWindow::on_BtnUp_clicked()     { roku->sendKey("Up"); }
+void MainWindow::on_BtnDown_clicked()   { roku->sendKey("Down"); }
+void MainWindow::on_BtnRight_clicked()  { roku->sendKey("Right"); }
+void MainWindow::on_BtnLeft_clicked()   { roku->sendKey("Left"); }
 
 
 void MainWindow::on_rokuIpEdit_editingFinished()
@@ -31,10 +33,8 @@ void MainWindow::on_rokuIpEdit_editingFinished()
         qDebug() << "Edit done -- no-change";
         return;
     }
-    if(roku.setIp(ui->rokuIpEdit->text()) == false) {
+    if(roku->setIp(ui->rokuIpEdit->text()) == false) {
         qDebug() << "Roku not found, please change!";
-    } else {
-        roku.refreshData();
     }
 
     last_ipval = ui->rokuIpEdit->text();
@@ -43,6 +43,6 @@ void MainWindow::on_rokuIpEdit_editingFinished()
 
 void MainWindow::on_getBtn_clicked()
 {
-    roku.testConnectivity();
+    roku->refreshData();
     qDebug() << "Test done";
 }

@@ -9,7 +9,7 @@
 class Roku
 {
 public:
-    explicit Roku(void);
+    explicit Roku(QString addr);
     void sendKey(const char *name);
     void testConnectivity(void);
     bool refreshData(void);
