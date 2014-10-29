@@ -32,6 +32,7 @@ QByteArray HttpHandler::post(QUrl &url)
     loop.exec();
 
     delete req;
+    qDebug();
     qDebug() << "read reply - " << response;
     return response;
 

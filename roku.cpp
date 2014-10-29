@@ -29,6 +29,7 @@ bool Roku::refreshData(void)
     QString url = genUrl();
     QByteArray foo = http.get(url);
     qDebug() << "Got data: " << foo;
+
     return true;
 }
 

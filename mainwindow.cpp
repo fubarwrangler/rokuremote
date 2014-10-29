@@ -25,6 +25,9 @@ void MainWindow::on_BtnUp_clicked()     { roku->sendKey("Up"); }
 void MainWindow::on_BtnDown_clicked()   { roku->sendKey("Down"); }
 void MainWindow::on_BtnRight_clicked()  { roku->sendKey("Right"); }
 void MainWindow::on_BtnLeft_clicked()   { roku->sendKey("Left"); }
+void MainWindow::on_BtnFf_clicked()     { roku->sendKey("Fwd"); }
+void MainWindow::on_BtnPlay_clicked()   { roku->sendKey("Play"); }
+void MainWindow::on_BtnRw_clicked()     { roku->sendKey("Rev"); }
 
 
 void MainWindow::on_rokuIpEdit_editingFinished()
