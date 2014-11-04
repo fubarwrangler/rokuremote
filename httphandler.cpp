@@ -72,7 +72,6 @@ void HttpHandler::PostRequestEnded(void)
 
     }
     response = reply->readAll();
-    qDebug() << "Post reply read";
     reply->deleteLater();
 }
 
@@ -127,7 +126,7 @@ void HttpHandler::GetRequestEnded()
     }
 
     response = reply->readAll();
-    qDebug() << "read reply - " << response;
+    // qDebug() << "read reply - " << response;
 
     reply->deleteLater();
 }

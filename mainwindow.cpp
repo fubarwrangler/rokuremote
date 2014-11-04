@@ -41,6 +41,7 @@ void MainWindow::on_rokuIpEdit_editingFinished()
     }
 
     last_ipval = ui->rokuIpEdit->text();
+    ui->modelLabel->setText(roku->modelname);
     qDebug() << "Edit done -- changed";
 }
 
