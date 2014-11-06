@@ -24,6 +24,9 @@ private slots:
     void on_BtnDown_clicked();
     void on_BtnLeft_clicked();
     void on_BtnRight_clicked();
+    void on_BtnFf_clicked();
+    void on_BtnPlay_clicked();
+    void on_BtnRw_clicked();
 
     void on_rokuIpEdit_editingFinished();
 

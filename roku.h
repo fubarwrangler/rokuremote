@@ -14,9 +14,13 @@ public:
     void testConnectivity(void);
     bool refreshData(void);
     bool setIp(const QString &str);
+    QString modelname;
+    QString modelnum;
+    QString serial;
 
 private:
     QString genUrl(void);
+    void parseModelData(const QByteArray &bytes);
     HttpHandler http;
     QString address;
     int port;
